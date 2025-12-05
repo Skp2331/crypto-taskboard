@@ -1,406 +1,213 @@
-# 🚀 Crypto Taskboard
+🚀 Crypto Taskboard
 
-A full-stack **MERN** (MongoDB, Express.js, React, Node.js) task management application built as part of a Frontend Developer Intern assignment. This project demonstrates my understanding of modern web development practices, RESTful API design, and secure authentication systems.
+A full-stack MERN (MongoDB, Express.js, React, Node.js) task-management web application built as part of a Frontend Developer Intern Assignment.
 
----
+This project demonstrates skills in modern frontend development, backend API engineering, JWT-based authentication, CRUD operations, state management, and responsive UI using TailwindCSS.
 
-## 📌 Project Overview
+✨ Features
+🔐 Authentication
 
-**Crypto Taskboard** is a productivity application designed for managing tasks efficiently. Users can register, log in, and manage their personal tasks with features like filtering, searching, and priority-based organization.
+User registration with email validation
 
-This project showcases:
-- Clean, modular code architecture
-- Separation of concerns between frontend and backend
-- Industry-standard authentication using JWT
-- Responsive UI with TailwindCSS
+Secure login using JWT
 
----
+Password hashing using bcrypt
 
-## ✨ Features
+Auto-logout on token expiration
 
-### 🔐 Authentication
-- User registration with email validation
-- Secure login with JWT token generation
-- Password hashing using bcrypt (10 salt rounds)
-- Auto-logout on token expiration
-- Protected routes on both frontend and backend
+Protected frontend & backend routes
 
-### 📋 Task Management (CRUD)
-- **Create** - Add new tasks with title, description, priority, status, and due date
-- **Read** - View all tasks with real-time filtering
-- **Update** - Edit task details inline
-- **Delete** - Remove tasks with confirmation
+🗂️ Task Management (CRUD)
 
-### 📊 Dashboard
-- Task statistics (total, pending, in-progress, completed)
-- High-priority alerts
-- Search by title/description
-- Filter by status (pending, in-progress, completed)
-- Filter by priority (low, medium, high)
+Create, Read, Update, Delete tasks
 
-### 👤 Profile Management
-- View profile information
-- Update display name
+Search tasks by title
 
----
+Filter by status (To-Do, In-Progress, Done)
 
-## 🛠️ Tech Stack
+Filter by priority (Low, Medium, High)
 
-| Layer | Technology | Purpose |
-|-------|------------|---------|
-| **Frontend** | React 18 | UI Components |
-| | Vite | Fast build tool |
-| | TailwindCSS | Styling |
-| | React Router DOM | Client-side routing |
-| | Axios | HTTP requests |
-| | Context API | State management |
-| **Backend** | Node.js | Runtime environment |
-| | Express.js | Web framework |
-| | MongoDB | NoSQL database |
-| | Mongoose | ODM for MongoDB |
-| | JWT | Token-based auth |
-| | bcryptjs | Password hashing |
-| | express-validator | Input validation |
+Responsive and clean UI
 
----
+👤 User Profile
 
-## 📁 Folder Structure
+Fetch logged-in user profile
 
-```
+Update user name & email
+
+Protected using JWT middleware
+
+🧰 Technical Features
+
+Modular backend with Express routers
+
+MongoDB with Mongoose models
+
+Axios interceptors for token handling
+
+TailwindCSS responsive UI
+
+Clean folder structure for scalability
+
+🛠️ Tech Stack
+Frontend
+
+React (Vite)
+
+TailwindCSS
+
+Axios
+
+React Router
+
+Context API
+
+Backend
+
+Node.js
+
+Express.js
+
+MongoDB + Mongoose
+
+bcrypt
+
+JSON Web Tokens (JWT)
+
+express-validator
+
+📁 Folder Structure
 crypto-taskboard/
 │
 ├── backend/
 │   ├── config/
-│   │   └── db.js                  # MongoDB connection setup
-│   │
-│   ├── middleware/
-│   │   ├── authMiddleware.js      # JWT verification middleware
-│   │   └── errorHandler.js        # Global error handler
-│   │
 │   ├── models/
-│   │   ├── User.js                # User schema with bcrypt hooks
-│   │   └── Task.js                # Task schema with indexes
-│   │
 │   ├── routes/
-│   │   ├── authRoutes.js          # POST /register, /login
-│   │   ├── profileRoutes.js       # GET, PUT /profile
-│   │   └── taskRoutes.js          # CRUD /tasks
-│   │
-│   ├── .env                       # Environment variables
-│   ├── .env.example               # Environment template
-│   ├── package.json
-│   └── server.js                  # Express app entry point
+│   ├── middleware/
+│   ├── server.js
+│   └── package.json
 │
 ├── frontend/
-│   ├── public/
-│   │   └── vite.svg
-│   │
 │   ├── src/
-│   │   ├── api/
-│   │   │   └── axios.js           # Axios instance with interceptors
-│   │   │
-│   │   ├── components/
-│   │   │   ├── Navbar.jsx         # Navigation component
-│   │   │   ├── ProtectedRoute.jsx # Auth guard for routes
-│   │   │   ├── SearchBar.jsx      # Search input component
-│   │   │   ├── TaskForm.jsx       # Create/Edit task modal
-│   │   │   └── TaskList.jsx       # Task display component
-│   │   │
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx    # Authentication state
-│   │   │
-│   │   ├── pages/
-│   │   │   ├── Dashboard.jsx      # Main task management page
-│   │   │   ├── Login.jsx          # Login page
-│   │   │   ├── Profile.jsx        # User profile page
-│   │   │   └── Register.jsx       # Registration page
-│   │   │
-│   │   ├── App.jsx                # Route configuration
-│   │   ├── index.css              # Global styles + Tailwind
-│   │   └── main.jsx               # React entry point
-│   │
+│   ├── public/
 │   ├── index.html
-│   ├── package.json
-│   ├── postcss.config.js
-│   ├── tailwind.config.js
-│   └── vite.config.js
+│   └── package.json
 │
 ├── Crypto-Taskboard-API.postman_collection.json
 └── README.md
-```
 
----
-
-## 🚀 How to Run
-
-### Prerequisites
-- Node.js v18+ ([Download](https://nodejs.org/))
-- MongoDB v6+ ([Download](https://mongodb.com/try/download/community) or use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
-- npm or yarn
-
-### 1️⃣ Clone the Repository
-```bash
-git clone <repository-url>
+⚙️ Installation & Setup
+1️⃣ Clone the repository
+git clone https://github.com/Skp2331/crypto-taskboard.git
 cd crypto-taskboard
-```
 
-### 2️⃣ Setup Backend
-
-```bash
-# Navigate to backend folder
+🌐 Backend Setup (Port 5000)
 cd backend
-
-# Install dependencies
 npm install
 
-# Create .env file (or use existing)
-# Make sure to set:
-# MONGO_URI=mongodb://localhost:27017/crypto-taskboard
-# JWT_SECRET=your_secret_key
-# PORT=5000
 
-# Start development server
+Create .env file:
+
+MONGO_URI=your_mongodb_url
+JWT_SECRET=your_secret_key
+PORT=5000
+
+
+Run backend:
+
 npm run dev
-```
 
-✅ Backend runs at: `http://localhost:5000`
-
-### 3️⃣ Setup Frontend
-
-```bash
-# Open new terminal, navigate to frontend folder
+💻 Frontend Setup (Port 5173)
 cd frontend
-
-# Install dependencies
 npm install
-
-# Start development server
 npm run dev
-```
 
-✅ Frontend runs at: `http://localhost:5173`
 
----
+Frontend will run at:
+👉 http://localhost:5173
 
-## 📚 API Documentation
+Backend at:
+👉 http://localhost:5000
 
-### Base URL
-```
-http://localhost:5000/api
-```
+📌 API Endpoints
+🔐 Auth Routes
+Method	Endpoint	Description
+POST	/api/auth/register	Register a new user
+POST	/api/auth/login	Login user
+👤 Profile Routes
+Method	Endpoint	Description
+GET	/api/profile	Get logged-in user
+PUT	/api/profile	Update logged-in user
+📝 Task Routes
+Method	Endpoint	Description
+GET	/api/tasks	Get all tasks (with filters)
+POST	/api/tasks	Create a new task
+PUT	/api/tasks/:id	Update task
+DELETE	/api/tasks/:id	Delete task
+🧪 Postman Collection
 
-### Authentication Endpoints
-
-| Method | Endpoint | Description | Body |
-|--------|----------|-------------|------|
-| POST | `/auth/register` | Register new user | `{ name, email, password }` |
-| POST | `/auth/login` | Login user | `{ email, password }` |
-
-**Example Response (Login):**
-```json
-{
-  "success": true,
-  "message": "Login successful",
-  "data": {
-    "_id": "64abc123...",
-    "name": "John Doe",
-    "email": "john@example.com",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6..."
-  }
-}
-```
-
-### Profile Endpoints (Protected 🔒)
-
-| Method | Endpoint | Description | Body |
-|--------|----------|-------------|------|
-| GET | `/profile` | Get current user | - |
-| PUT | `/profile` | Update profile | `{ name }` |
-
-### Task Endpoints (Protected 🔒)
-
-| Method | Endpoint | Description | Body/Params |
-|--------|----------|-------------|-------------|
-| GET | `/tasks` | Get all tasks | Query: `?status=pending&priority=high&search=keyword` |
-| GET | `/tasks/:id` | Get single task | - |
-| POST | `/tasks` | Create task | `{ title, description, status, priority, dueDate, tags }` |
-| PUT | `/tasks/:id` | Update task | `{ title, status, priority, ... }` |
-| DELETE | `/tasks/:id` | Delete task | - |
-
-**Task Object Structure:**
-```json
-{
-  "_id": "64abc456...",
-  "user": "64abc123...",
-  "title": "Complete project",
-  "description": "Finish the MERN assignment",
-  "status": "in-progress",
-  "priority": "high",
-  "dueDate": "2024-12-31T00:00:00.000Z",
-  "tags": ["urgent", "assignment"],
-  "createdAt": "2024-12-06T00:00:00.000Z",
-  "updatedAt": "2024-12-06T00:00:00.000Z"
-}
-```
-
-### Error Response Format
-```json
-{
-  "success": false,
-  "message": "Error description",
-  "errors": []
-}
-```
-
----
-
-## 📮 Postman Collection
-
-A ready-to-use Postman collection is included in the project root:
-
-```
+Import this file:
 📄 Crypto-Taskboard-API.postman_collection.json
-```
 
-**How to use:**
-1. Open Postman
-2. Click **Import** → Select the JSON file
-3. The collection includes all endpoints with example data
-4. Tokens are automatically saved after login/register
+Includes:
 
----
+Auth flows
 
-## 📈 Scaling Strategy for Production
+Profile queries
 
-### 1. Database Layer
-```
-┌─────────────────────────────────────────┐
-│           MongoDB Atlas                  │
-│  ┌─────────┐ ┌─────────┐ ┌─────────┐   │
-│  │ Primary │ │ Secondary│ │ Secondary│   │
-│  │ (Write) │ │ (Read)  │ │ (Read)  │   │
-│  └─────────┘ └─────────┘ └─────────┘   │
-│           Replica Set                    │
-└─────────────────────────────────────────┘
-```
-- Use **MongoDB Atlas** for managed cloud database
-- Enable **replica sets** for high availability
-- Create **indexes** on frequently queried fields (already implemented)
+CRUD operations
 
-### 2. Application Layer
-```
-                    ┌──────────────┐
-                    │ Load Balancer│
-                    │   (NGINX)    │
-                    └──────┬───────┘
-           ┌───────────────┼───────────────┐
-           │               │               │
-    ┌──────▼──────┐ ┌──────▼──────┐ ┌──────▼──────┐
-    │   Node.js   │ │   Node.js   │ │   Node.js   │
-    │ Instance 1  │ │ Instance 2  │ │ Instance 3  │
-    └─────────────┘ └─────────────┘ └─────────────┘
-```
-- **Horizontal scaling** with multiple Node.js instances
-- Use **PM2** for process management and clustering
-- Deploy behind **NGINX** reverse proxy
+Sample request bodies
 
-### 3. Caching Layer
-- Implement **Redis** for session and frequently accessed data
-- Cache task lists with short TTL (5 minutes)
+🚀 Scaling Strategy for Production
 
-### 4. Container Deployment
-```dockerfile
-# Example: Deploy with Docker
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-COPY . .
-EXPOSE 5000
-CMD ["node", "server.js"]
-```
+Move environment variables to secure vaults
 
-### 5. Cloud Hosting Options
-| Service | Use Case |
-|---------|----------|
-| AWS EC2 / ECS | Full control, scalable |
-| Google Cloud Run | Serverless containers |
-| Railway / Render | Quick deployment |
-| Vercel | Frontend hosting |
+Use Refresh Tokens + short-lived access tokens
 
----
+Use Nginx reverse proxy
 
-## 🔒 Why This Solution is Secure and Scalable
+Deploy:
 
-### Security Measures Implemented
+Frontend → Vercel / Netlify
 
-| Feature | Implementation | Purpose |
-|---------|----------------|---------|
-| **Password Hashing** | bcrypt with 10 rounds | Protects passwords even if DB is compromised |
-| **JWT Authentication** | 7-day expiry tokens | Stateless auth, no session storage needed |
-| **Input Validation** | express-validator | Prevents SQL injection, XSS attacks |
-| **CORS Configuration** | Whitelist specific origins | Blocks unauthorized domains |
-| **Password Not in Response** | `select: false` in schema | Never exposes passwords in API |
-| **Error Handling** | Global middleware | Doesn't leak stack traces in production |
+Backend → Render / Railway
 
-### Scalability Design Patterns
+Database → MongoDB Atlas
 
-1. **Stateless Architecture**
-   - JWT tokens eliminate server-side session storage
-   - Any server instance can handle any request
+Add rate limiting & CORS whitelisting
 
-2. **Database Indexing**
-   ```javascript
-   taskSchema.index({ user: 1, status: 1 });
-   taskSchema.index({ user: 1, createdAt: -1 });
-   ```
-   - Speeds up queries significantly as data grows
+Implement logging (Winston / Morgan)
 
-3. **Modular Code Structure**
-   - Separated routes, models, middleware
-   - Easy to add new features without breaking existing ones
+Add pagination to tasks API
 
-4. **Environment-Based Configuration**
-   - Different settings for development/production
-   - Easy to deploy across environments
+🔒 Security Practices
 
-5. **API-First Design**
-   - Frontend and backend are independent
-   - Can be deployed separately on different servers
+Passwords hashed with bcrypt
 
----
+JWT authentication middleware
 
-## 🎯 Future Improvements
+Server-side input validation
 
-- [ ] Add refresh tokens for better security
-- [ ] Implement rate limiting
-- [ ] Add task categories/projects
-- [ ] Email notifications for due dates
-- [ ] Collaborative tasks (team feature)
-- [ ] Export tasks to CSV/PDF
+Mongo injection prevention via Mongoose
 
----
+No secrets committed to repository
 
-## 👨‍💻 About the Developer
+📸 (Optional) Add Screenshots Here
 
-This project was built as part of a **Frontend Developer Intern** assignment. It demonstrates my ability to:
-- Build full-stack applications from scratch
-- Implement secure authentication systems
-- Write clean, maintainable code
-- Design scalable architectures
-- Document projects professionally
+You can add:
 
----
+Login page
 
-## 📄 License
+Dashboard
 
-This project is open-source and available under the [MIT License](LICENSE).
+Task creation
 
----
+Profile page
 
-<div align="center">
-  <p>Built with ❤️ using the MERN Stack</p>
-  <p><strong>Crypto Taskboard</strong> - Your tasks, organized.</p>
-</div>
-#   c r y p t o - t a s k b o a r d  
- 
+It improves recruiter first impression.
+
+👨‍💻 Author
+
+Som K
+Frontend Developer | MERN Stack | Java | DSA
