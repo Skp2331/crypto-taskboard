@@ -1,0 +1,403 @@
+{
+    "info": {
+        "name": "Crypto Taskboard API",
+        "description": "Complete API collection for the Crypto Taskboard MERN Stack Application.\n\nBase URL: http://localhost:5000/api\n\nHow to use:\n1. Register or Login first to get a token\n2. The token is automatically saved to the collection variable\n3. All protected routes will use this token automatically",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:5000/api",
+            "type": "string"
+        },
+        {
+            "key": "token",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "taskId",
+            "value": "",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "AUTH",
+            "description": "Authentication endpoints for user registration and login",
+            "item": [
+                {
+                    "name": "Register User",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 201) {",
+                                    "    const response = pm.response.json();",
+                                    "    pm.collectionVariables.set('token', response.data.token);",
+                                    "    console.log('Token saved successfully!');",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/auth/register",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "register"
+                            ]
+                        },
+                        "description": "Register a new user account.\n\n**Request Body:**\n- `name` (required): User's full name (2-50 characters)\n- `email` (required): Valid email address\n- `password` (required): Minimum 6 characters\n\n**Response:** Returns user data with JWT token"
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "status": "Created",
+                            "code": 201,
+                            "body": "{\n    \"success\": true,\n    \"message\": \"User registered successfully\",\n    \"data\": {\n        \"_id\": \"64abc123def456\",\n        \"name\": \"John Doe\",\n        \"email\": \"john@example.com\",\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Login User",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 200) {",
+                                    "    const response = pm.response.json();",
+                                    "    pm.collectionVariables.set('token', response.data.token);",
+                                    "    console.log('Token saved successfully!');",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/auth/login",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "login"
+                            ]
+                        },
+                        "description": "Login with existing credentials.\n\n**Request Body:**\n- `email` (required): Registered email address\n- `password` (required): User's password\n\n**Response:** Returns user data with JWT token"
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{\n    \"success\": true,\n    \"message\": \"Login successful\",\n    \"data\": {\n        \"_id\": \"64abc123def456\",\n        \"name\": \"John Doe\",\n        \"email\": \"john@example.com\",\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"\n    }\n}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "PROFILE",
+            "description": "User profile management endpoints (Protected - requires authentication)",
+            "item": [
+                {
+                    "name": "Get Profile",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "description": "JWT token from login/register"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/profile",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "profile"
+                            ]
+                        },
+                        "description": "Get the current authenticated user's profile.\n\n**Authorization:** Bearer token required\n\n**Response:** Returns user profile data"
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"64abc123def456\",\n        \"name\": \"John Doe\",\n        \"email\": \"john@example.com\",\n        \"createdAt\": \"2024-12-06T00:00:00.000Z\",\n        \"updatedAt\": \"2024-12-06T00:00:00.000Z\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Update Profile",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "description": "JWT token from login/register"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"John Updated\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/profile",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "profile"
+                            ]
+                        },
+                        "description": "Update the current user's profile.\n\n**Authorization:** Bearer token required\n\n**Request Body:**\n- `name` (optional): New display name (2-50 characters)\n\n**Response:** Returns updated user profile"
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{\n    \"success\": true,\n    \"message\": \"Profile updated successfully\",\n    \"data\": {\n        \"_id\": \"64abc123def456\",\n        \"name\": \"John Updated\",\n        \"email\": \"john@example.com\",\n        \"createdAt\": \"2024-12-06T00:00:00.000Z\",\n        \"updatedAt\": \"2024-12-06T01:00:00.000Z\"\n    }\n}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "TASKS",
+            "description": "Task CRUD operations (Protected - requires authentication)",
+            "item": [
+                {
+                    "name": "Get All Tasks",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "description": "JWT token from login/register"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/tasks",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "tasks"
+                            ],
+                            "query": [
+                                {
+                                    "key": "status",
+                                    "value": "pending",
+                                    "description": "Filter by status: pending, in-progress, completed",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "priority",
+                                    "value": "high",
+                                    "description": "Filter by priority: low, medium, high",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "search",
+                                    "value": "project",
+                                    "description": "Search in title and description",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "sortBy",
+                                    "value": "createdAt",
+                                    "description": "Sort by: createdAt, dueDate, priority, title",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "order",
+                                    "value": "desc",
+                                    "description": "Sort order: asc, desc",
+                                    "disabled": true
+                                }
+                            ]
+                        },
+                        "description": "Get all tasks for the authenticated user.\n\n**Authorization:** Bearer token required\n\n**Query Parameters (all optional):**\n- `status`: pending | in-progress | completed\n- `priority`: low | medium | high\n- `search`: Search term for title/description\n- `sortBy`: createdAt | dueDate | priority | title\n- `order`: asc | desc\n\n**Response:** Returns array of tasks"
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{\n    \"success\": true,\n    \"count\": 2,\n    \"data\": [\n        {\n            \"_id\": \"64task123\",\n            \"user\": \"64abc123def456\",\n            \"title\": \"Complete project\",\n            \"description\": \"Finish the MERN assignment\",\n            \"status\": \"in-progress\",\n            \"priority\": \"high\",\n            \"dueDate\": \"2024-12-31T00:00:00.000Z\",\n            \"tags\": [\"urgent\"],\n            \"createdAt\": \"2024-12-06T00:00:00.000Z\",\n            \"updatedAt\": \"2024-12-06T00:00:00.000Z\"\n        }\n    ]\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Create Task",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 201) {",
+                                    "    const response = pm.response.json();",
+                                    "    pm.collectionVariables.set('taskId', response.data._id);",
+                                    "    console.log('Task ID saved: ' + response.data._id);",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "description": "JWT token from login/register"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"Complete MERN Project\",\n    \"description\": \"Build a full-stack task management application with authentication\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"dueDate\": \"2024-12-31\",\n    \"tags\": [\"mern\", \"assignment\", \"urgent\"]\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/tasks",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "tasks"
+                            ]
+                        },
+                        "description": "Create a new task.\n\n**Authorization:** Bearer token required\n\n**Request Body:**\n- `title` (required): Task title (1-100 characters)\n- `description` (optional): Task description (max 500 characters)\n- `status` (optional): pending | in-progress | completed (default: pending)\n- `priority` (optional): low | medium | high (default: medium)\n- `dueDate` (optional): Due date in ISO format\n- `tags` (optional): Array of tag strings\n\n**Response:** Returns created task"
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "status": "Created",
+                            "code": 201,
+                            "body": "{\n    \"success\": true,\n    \"message\": \"Task created successfully\",\n    \"data\": {\n        \"_id\": \"64task789\",\n        \"user\": \"64abc123def456\",\n        \"title\": \"Complete MERN Project\",\n        \"description\": \"Build a full-stack task management application with authentication\",\n        \"status\": \"pending\",\n        \"priority\": \"high\",\n        \"dueDate\": \"2024-12-31T00:00:00.000Z\",\n        \"tags\": [\"mern\", \"assignment\", \"urgent\"],\n        \"createdAt\": \"2024-12-06T00:00:00.000Z\",\n        \"updatedAt\": \"2024-12-06T00:00:00.000Z\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Update Task",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "description": "JWT token from login/register"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"Updated Task Title\",\n    \"status\": \"in-progress\",\n    \"priority\": \"medium\",\n    \"description\": \"Updated description for the task\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/tasks/{{taskId}}",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "tasks",
+                                "{{taskId}}"
+                            ]
+                        },
+                        "description": "Update an existing task.\n\n**Authorization:** Bearer token required\n\n**URL Parameters:**\n- `id`: Task ID to update\n\n**Request Body (all optional):**\n- `title`: New task title\n- `description`: New description\n- `status`: pending | in-progress | completed\n- `priority`: low | medium | high\n- `dueDate`: New due date\n- `tags`: New tags array\n\n**Response:** Returns updated task"
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{\n    \"success\": true,\n    \"message\": \"Task updated successfully\",\n    \"data\": {\n        \"_id\": \"64task789\",\n        \"user\": \"64abc123def456\",\n        \"title\": \"Updated Task Title\",\n        \"description\": \"Updated description for the task\",\n        \"status\": \"in-progress\",\n        \"priority\": \"medium\",\n        \"dueDate\": \"2024-12-31T00:00:00.000Z\",\n        \"tags\": [\"mern\", \"assignment\", \"urgent\"],\n        \"createdAt\": \"2024-12-06T00:00:00.000Z\",\n        \"updatedAt\": \"2024-12-06T01:00:00.000Z\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Task",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "description": "JWT token from login/register"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/tasks/{{taskId}}",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "tasks",
+                                "{{taskId}}"
+                            ]
+                        },
+                        "description": "Delete a task.\n\n**Authorization:** Bearer token required\n\n**URL Parameters:**\n- `id`: Task ID to delete\n\n**Response:** Returns success message"
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{\n    \"success\": true,\n    \"message\": \"Task deleted successfully\"\n}"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
